@@ -11,7 +11,7 @@ public class Location {
     public Location(String name, String description){
         this.name = name;
         this.description = description;
-        this.items = new ArrayList<>();
+        this.items = new ArrayList<Item>();
     }
 
     //getter
