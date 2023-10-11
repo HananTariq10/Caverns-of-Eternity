@@ -6,9 +6,9 @@ public class Driver {
     public static void main(String[] args) {
         // Create a new Location object and add items
         currLocation = new Location("Kitchen", "A dark kitchen whose lights are flickering");
-        currLocation.addItem(new Item("Knife", "A sharp kitchen knife"));
-        currLocation.addItem(new Item("Turkey", "A roasted turkey"));
-        currLocation.addItem(new Item("Plate", "A clean white plate"));
+        currLocation.addItem(new Item("Knife", "Weapon", "A sharp kitchen knife"));
+        currLocation.addItem(new Item("Turkey", "Food", "A roasted turkey"));
+        currLocation.addItem(new Item("Plate","Dinnerware", "A clean white plate"));
 
         // Create a Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
@@ -32,8 +32,8 @@ public class Driver {
 
                 case "look":
                     System.out.println(currLocation.getName() + " - " + currLocation.getDescription() + " currently has the following items:");
-                    for (Item item : currLocation.items) {
-                        System.out.println("+ " + item.getName());
+                    for (int i = 0; i < currLocation.numItems(); i++) {
+                        System.out.println("+ " + currLocation.getItem(i).getName());
                     }
                     break;
 
