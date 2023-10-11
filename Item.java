@@ -48,7 +48,7 @@ public class Item{
 
     // member methods
     public String toString(){
-        String output = String.format("%s[%s]: %s", name, type, description);
+        String output = name + " [" + type + "]: " + description;
         return output;
     }
 }

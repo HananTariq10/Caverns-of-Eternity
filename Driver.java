@@ -13,6 +13,9 @@ public class Driver {
         // Create a Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
 
+        // Wellcome Output
+        System.out.println("Wellcome to Caverns of Eternity");
+
         // Enter an "infinite" loop
         while (true) {
             // Prompt the user for a command
