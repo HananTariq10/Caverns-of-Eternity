@@ -1,40 +1,41 @@
 import java.util.ArrayList;
 
-public class ContainerItem extends Item {
+public class ContainerItem extends Item{
+
     private ArrayList<Item> items;
+
+
 
     public ContainerItem(String name, String type, String description) {
         super(name, type, description);
         items = new ArrayList<>();
     }
 
-    public void addItem(Item item) {
-        items.add(item);
+    public void addItem(Item lItem){
+        items.add(lItem);
     }
 
-    public boolean hasItem(String itemName) {
-        for (Item item : items) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
+    
+    public boolean hasItem(String iName){
+        for (Item i : items){
+            if (i.getName().equalsIgnoreCase(iName)){
                 return true;
             }
         }
         return false;
     }
 
-    public Item removeItem(String itemName) {
-        Item removedItem = null;
-        for (Item item : items) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
-                removedItem = item;
-                items.remove(item);
-                break;
+    public Item removeItem(String iName){
+        for (int i = 0; i < items.size(); i++){
+            if (items.get(i).getName().equalsIgnoreCase(iName)) {
+                return items.remove(i);
             }
         }
-        return removedItem;
+        return null;
     }
-
+    
     @Override
-    public String toString() {
+    public String toString(){
         StringBuilder temp = new StringBuilder();
         temp.append(super.toString());
         temp.append(" that contains:\n");
@@ -45,6 +46,8 @@ public class ContainerItem extends Item {
         }
 
         return temp.toString();
-    }
-}
 
+
+    }
+    
+}

@@ -1,76 +1,76 @@
-import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.ListIterator;
-
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class Location {
-    private String name;
-    private String description;
+    private String lName;
+    private String lDescription;
     private ArrayList<Item> items;
     private HashMap<String, Location> connections;
 
-    public Location(String name, String description) {
-        this.name = name;
-        this.description = description;
-        this.items = new ArrayList<Item>();
-        this.connections = new HashMap<String, Location>();
+    public Location(String pNameL, String pDescriptionL){
+        lName = pNameL;
+        lDescription = pDescriptionL;
+        items = new ArrayList<Item>();
+        connections = new HashMap<String, Location>();
     }
 
-    public String getName() {
-        return name;
+    public String getName(){
+        return lName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescription(){
+        return lDescription;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setName (String pName){
+        lName = pName;
     }
 
-    public void setDescription(String description){
-        this.description = description;
+    public void setDescription(String pDescription){
+        lDescription = pDescription;
     }
 
-    public void addItem(Item item) {
-        items.add(item);
+    public void addItem(Item pItem){
+        items.add(pItem);
     }
 
-    public boolean hasItem(String itemName) {
-        for (Item item : items) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
+    public boolean hasItem(String sItem){
+        for (Item i : items){
+            if (i.getName().equalsIgnoreCase(sItem)){
                 return true;
             }
         }
         return false;
     }
 
-    public Item getItem(String itemName) {
-        for (Item item : items) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
-                return item;
+    public Item getItem(String sItem){
+        for (Item i : items){
+            if (i.getName().equalsIgnoreCase(sItem)){
+                return i;
             }
         }
         return null;
-    }
+        }
 
-    public Item getItem(int index) {
-        if (index >= 0 && index < items.size()) {
+    public Item getItem(int index){
+        if (index>=0 && index<items.size()){
             return items.get(index);
-        } else {
+        }
+        else{
             return null;
         }
     }
 
-    public int numItems() {
+    public int numItems(){
         return items.size();
     }
 
-    public Item removeItem(String itemName) {
-        ListIterator<Item> iterator = items.listIterator();
+    public Item removeItem(String sItem){
+        Iterator<Item> iterator = items.iterator();
         while (iterator.hasNext()) {
             Item item = iterator.next();
-            if (item.getName().equalsIgnoreCase(itemName)) {
+            if (item.getName().equalsIgnoreCase(sItem)) {
                 iterator.remove();
                 return item;
             }
@@ -78,15 +78,21 @@ public class Location {
         return null;
     }
 
-    public void connect(String direction, Location otherLocation) {
-        connections.put(direction, otherLocation);
+    public void connect (String dName, Location lName){
+        connections.put(dName, lName);
     }
 
-    public boolean canMove(String direction) {
-        return connections.containsKey(direction);
+    public boolean canMove(String dName){
+        if (connections.containsKey(dName)) return true;
+        return false;
     }
 
-    public Location getLocation(String direction) {
-        return connections.get(direction);
+    public Location getLocation(String dName){
+        return connections.get(dName);
     }
+
+
+
+
+
 }
