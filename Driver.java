@@ -4,15 +4,10 @@ public class Driver {
     private static Location currLocation;
     private static ContainerItem myInventory;
 
-    public static void main(String[] args) {
-
-        
+    public static void main(String[] args) { 
         createWorld();
-        
-
-        
-
         try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Welcome to caverna-of-eternity");
             while (true){
                 System.out.println("Enter command: ");
                 String command = scanner.nextLine();
@@ -23,7 +18,6 @@ public class Driver {
                         System.exit(0);
                         break;
 
-                        
                     case "look":
                         System.out.println(currLocation.getName() + " - " + currLocation.getDescription() + " currently has the following items:");
                         for (int i = 0; i < currLocation.numItems(); i++) {
@@ -47,8 +41,6 @@ public class Driver {
                             }
                         }
                         break;
-                            
-    
                         
                     case "examine":
                         if (commandWords.length < 2) {
@@ -66,7 +58,6 @@ public class Driver {
                         }
                         
                         break;
-                    
 
                     case "inventory":
                         System.out.println(myInventory.toString());
@@ -89,11 +80,16 @@ public class Driver {
                         Item thisContainer = currLocation.getItem(cItem);
                         if (thisContainer instanceof ContainerItem){
                             ContainerItem containerItem = (ContainerItem) thisContainer;
-                            Item item = containerItem.removeItem(itemName);
-                            myInventory.addItem(item);
-                            System.out.println("You have taken the " + itemName + " from " + cItem + ".");
+                            if (containerItem.hasItem(itemName)){
+                                Item item = containerItem.removeItem(itemName);
+                                myInventory.addItem(item);
+                                System.out.println("You have taken the " + itemName + " from " + cItem + ".");
+                            }
+                            else {
+                                System.out.println("The container doesn't contain the item requested");
+                            }
                         } else {
-                            System.out.println("Cannot find that item here.");
+                            System.out.println("That is not a container item.");
                         }
                     }
                     else{
@@ -122,14 +118,14 @@ public class Driver {
                         System.out.println("Please specify an item and a container (e.g., 'put book in desk').");
                     } else {
                         if (myInventory.hasItem(commandWords[1])) {
-                            Item item = myInventory.removeItem(commandWords[1]);
                             Item container = currLocation.getItem(commandWords[3]);
                             if (container instanceof ContainerItem) {
+                                Item item = myInventory.removeItem(commandWords[1]);
                                 ContainerItem containerItem = (ContainerItem) container;
                                 containerItem.addItem(item);
                                 System.out.println("You have put the " + commandWords[1] + " in " + commandWords[3] + ".");
                             } else {
-                                System.out.println("Cannot find that container.");
+                                System.out.println("Cannot find that container or maybe the item is not a container type.");
                             }
                         } else {
                             System.out.println("Cannot find that item in your inventory.");
@@ -179,32 +175,32 @@ public class Driver {
 
 
         //Items for hallway
-        Item painting = new Item("Painting", "Decoration", "This is expensive");
-        Item flower = new Item("Flower", "Plant", "This is red");
-        Item dog = new Item("Dog", "Animal", "This is cute");
+        Item photo = new Item("Photo", "Decoration", "This is a picture of the last Ottomon empror");
+        Item flower = new Item("Flower", "Plant", "It's is dead");
+        Item skeleton = new Item("Skeleton", "Human", "This is scary");
         
-        hallway.addItem(painting);
+        hallway.addItem(photo);
         hallway.addItem(flower);
-        hallway.addItem(dog);
+        hallway.addItem(skeleton);
 
 
         //Items for bedroom
-        Item bed = new Item("Bed", "Furniture", "This is comfortable");
-        Item lamp = new Item("Lamp", "Light", "This is bright");
-        Item book = new Item("Book", "Education", "This is informative");
+        Item bed = new Item("Bed", "Furniture", "This is't mattress on it");
+        Item candle = new Item("Candle", "Light", "It's not lit");
+        Item book = new Item("Book", "Education", "This is an old religious scripture");
         
         bedroom.addItem(bed);
-        bedroom.addItem(lamp);
+        bedroom.addItem(candle);
         bedroom.addItem(book);
 
 
         //Items for livingroom
-        Item couch = new Item("Couch", "Furniture", "This is white");
-        Item tv = new Item("TV", "Entertainment", "This is 5K");
+        Item sofa = new Item("Sofa", "Furniture", "This is a black leather sofa");
+        Item mirror = new Item("Mirror", "Furniture", "This is half broken blur mirror");
         Item fireplace = new Item("Fireplace", "Comfort", "This is warm");
         
-        livingroom.addItem(couch);
-        livingroom.addItem(tv);
+        livingroom.addItem(sofa);
+        livingroom.addItem(mirror);
         livingroom.addItem(fireplace);
 
 
@@ -213,36 +209,23 @@ public class Driver {
 
 
         //Container Items
-        ContainerItem chest = new ContainerItem("Chest", "Storage", "An old, wooden chest");
-        chest.addItem(new Item("Key", "Utility", "A small brass key"));
-        kitchen.addItem(chest);
+        ContainerItem Bottle = new ContainerItem("Bottle", "Storage", "An old glass bottle.");
+        Bottle.addItem(new Item("Wine", "Drink", "Century old red wine."));
+        kitchen.addItem(Bottle);
 
-        ContainerItem desk = new ContainerItem("Desk", "Furniture", "A standing desk");
-        desk.addItem(new Item("Laptop", "Electronic", "A worn-out 2010s Toshiba Laptop"));
+        ContainerItem desk = new ContainerItem("Charit", "Furniture", "A broken desk");
+        desk.addItem(new Item("Letter", "Paper", "An old letter written in Arabic"));
         livingroom.addItem(desk);
 
-        ContainerItem vault = new ContainerItem("Vault", "Security", "A very strong vault");
-        vault.addItem(new Item("Gold Necklace", "Jewelery", "A beautiful gold necklace"));
-        bedroom.addItem(vault);
+        ContainerItem chest = new ContainerItem("Chset", "Security", "A strong chest made of gold and iron");
+        chest.addItem(new Item("Diamonds", "Jewelery", "A priceless diamond that belongs to the Khan Dinesty"));
+        bedroom.addItem(chest);
 
-        ContainerItem closet = new ContainerItem("Closet", "Furniture", "An old rusty closet");
-        closet.addItem(new Item("Cloth", "Cloth", "A silky red table cloth"));
+        ContainerItem closet = new ContainerItem("Closet", "Furniture", "An old dusty wooden closet");
+        closet.addItem(new Item("Shirt", "Cloth", "A century old shirt that belong to the Arabs"));
         hallway.addItem(closet);
 
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
 
     public static void printHelp(){
 
