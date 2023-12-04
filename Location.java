@@ -1,29 +1,29 @@
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.ListIterator;
+
 
 public class Location {
     private String name;
     private String description;
     private ArrayList<Item> items;
+    private HashMap<String, Location> connections;
 
-    //Constructor 
-    public Location(String name, String description){
+    public Location(String name, String description) {
         this.name = name;
         this.description = description;
         this.items = new ArrayList<Item>();
+        this.connections = new HashMap<String, Location>();
     }
 
-    //getter
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-
-    //setter
     public void setName(String name){
         this.name = name;
     }
@@ -32,47 +32,40 @@ public class Location {
         this.description = description;
     }
 
-    //Method named addItem
-    public void addItem(Item item){
+    public void addItem(Item item) {
         items.add(item);
-
     }
 
-    //Method named hasItem to check Location's ArrayList conatins an item with same name 
-    public boolean hasItem(String itemName){
-        for(Item item : items){
-            if (item.getName().equalsIgnoreCase(itemName)){
+    public boolean hasItem(String itemName) {
+        for (Item item : items) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
                 return true;
             }
         }
         return false;
     }
 
-    //Method named getItem to check k to see if an Item with that name is in the ArrayList and if so, it should return the matching Item object, otherwise, it should return null.
-    public Item getItem(String itemName){
-        for(Item item : items){
-            if (item.getName().equalsIgnoreCase(itemName)){
+    public Item getItem(String itemName) {
+        for (Item item : items) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
                 return item;
             }
         }
         return null;
     }
 
-    //Method named getItem that returns the Item object in Location's ArrayList\
     public Item getItem(int index) {
         if (index >= 0 && index < items.size()) {
             return items.get(index);
         } else {
-            return null; // Invalid index, return null
+            return null;
         }
     }
 
-    // Method named numItems that returns number of items in ArrayList
     public int numItems() {
         return items.size();
     }
 
-    //Method named removeItem to remove an Item by name and return it
     public Item removeItem(String itemName) {
         ListIterator<Item> iterator = items.listIterator();
         while (iterator.hasNext()) {
@@ -84,7 +77,16 @@ public class Location {
         }
         return null;
     }
-} 
 
+    public void connect(String direction, Location otherLocation) {
+        connections.put(direction, otherLocation);
+    }
 
-   
+    public boolean canMove(String direction) {
+        return connections.containsKey(direction);
+    }
+
+    public Location getLocation(String direction) {
+        return connections.get(direction);
+    }
+}
